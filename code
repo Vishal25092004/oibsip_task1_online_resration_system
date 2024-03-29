@@ -1,0 +1,111 @@
+import java.util.Scanner;
+
+public class OnlineReservationSystem {
+    private static Scanner scanner = new Scanner(System.in);
+    private static boolean isLoggedIn = false;
+    private static String loggedInUser = "";
+
+    public static void main(String[] args) {
+        while (true) {
+            System.out.println("Welcome to Online Reservation System");
+            System.out.println("1. Login");
+            System.out.println("2. Exit");
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+
+            switch (choice) {
+                case 1:
+                    login();
+                    break;
+                case 2:
+                    System.out.println("Exiting program...");
+                    return;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+                    break;
+            }
+        }
+    }
+
+    private static void login() {
+        System.out.println("Enter Login ID:");
+        String loginId = scanner.nextLine();
+        System.out.println("Enter Password:");
+        String password = scanner.nextLine();
+
+        // Simulate authentication
+        if (isValidLogin(loginId, password)) {
+            isLoggedIn = true;
+            loggedInUser = loginId;
+            System.out.println("Login successful! Welcome, " + loggedInUser + "!");
+            showReservationMenu();
+        } else {
+            System.out.println("Invalid login credentials. Please try again.");
+        }
+    }
+
+    private static boolean isValidLogin(String loginId, String password) {
+        // You can implement your authentication logic here.
+        // For simplicity, we'll use a hardcoded login.
+        return loginId.equals("admin") && password.equals("password");
+    }
+
+    private static void showReservationMenu() {
+        while (isLoggedIn) {
+            System.out.println("\nReservation Menu");
+            System.out.println("1. Make a Reservation");
+            System.out.println("2. Cancel Reservation");
+            System.out.println("3. Logout");
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+
+            switch (choice) {
+                case 1:
+                    makeReservation();
+                    break;
+                case 2:
+                    cancelReservation();
+                    break;
+                case 3:
+                    System.out.println("Logging out...");
+                    isLoggedIn = false;
+                    loggedInUser = "";
+                    return;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+                    break;
+            }
+        }
+    }
+
+    private static void makeReservation() {
+        System.out.println("Making a Reservation...");
+        if (!isLoggedIn) {
+            System.out.println("You need to login first.");
+            return;
+        }
+
+        // Here you can implement the reservation logic
+        // For simplicity, we'll just display a message
+        System.out.println("Please enter the necessary details for reservation:");
+        // Code to take input for reservation details like train number, date, etc.
+        System.out.println("Reservation successful!");
+    }
+
+    private static void cancelReservation() {
+        System.out.println("Canceling Reservation...");
+        if (!isLoggedIn) {
+            System.out.println("You need to login first.");
+            return;
+        }
+
+        System.out.println("Please enter the PNR number of the ticket to cancel:");
+        String pnrNumber = scanner.nextLine();
+
+        // Here you can implement the cancellation logic
+        // For simplicity, we'll just display a message
+        System.out.println("Ticket with PNR " + pnrNumber + " canceled successfully.");
+    }
+}
